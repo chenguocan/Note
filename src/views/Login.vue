@@ -1,35 +1,35 @@
 <template>
-  <div class="loginBox">
-    <h3>登录界面</h3>
-    <form method="post" class="formBox">
-      <label>用户名:<input type="text" class="username" v-model="username"/></label>
-      <label>密码:<input type="text" class="password" v-model="password"/></label>
-      <div class="buttonBox">
+  <div class="loginInterface">
+    <h2>登录界面</h2>
+    <div class="loginBox">
+      <form method="post" class="formBox">
+        <label class="mark">用户名:</label><input class="username" type="text" v-model="username"/>
+        <label class="mark">密码:</label><input type="text" class="password" v-model="password"/>
         <button class="buttons login" @click="login($event)">登录</button>
-        <button class="buttons signin">注册</button>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'Login',
   data() {
     return {
-      username: 'admin',
+      username: 'hunger',
       password: '123456',
     }
   },
   methods: {
     async login(e) {
       e.preventDefault();
-      //const message = {username: this.username, password: this.password};
       const res = await this.$http.post("/auth/login",
-        {username:'hunger',password:"123456"}
+          {username: 'hunger', password: "123456"}
       );
-      console.log(res);
-
+      if(res.status===200){
+        await this.$router.push("/home");
+      }
     }
   }
 };
@@ -38,49 +38,56 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/styles/valiable.scss";
 
-.loginBox {
-  min-height: 400px;
-  max-width: 500px;
-  margin-right: auto;
-  margin-left: auto;
+.loginInterface {
   background: $line-color;
-  transform: translateY(30%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .formBox {
+  min-height: 750px;
+  h2 {
+    transform: translateY(100px);
+  }
+  .loginBox {
+    background: white;
+    min-height: 400px;
+    max-width: 350px;
+    margin-right: auto;
+    margin-left: auto;
+    transform: translateY(30%);
     display: flex;
     flex-direction: column;
-
-    .username, .password {
-      margin-top: 20px;
-      border-radius: 3px;
-      width: 200px;
-      height: 30px;
-      background: white;
-    }
-
-    .buttonBox {
-      margin-top: 10px;
-
-      .buttons {
-        width: 80px;
-        height: 30px;
+    .formBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+      .mark{
+        color:gray;
+        width: 40px;
+        transform: translateX(-80px);
+        margin-top:10px;
+        font-size: 10px;
+        text-align: left;
+        text-align-last: justify;
+      }
+      .username, .password {
+        border:1px solid gray;
         border-radius: 3px;
-        margin-right: 10px;
+        width: 200px;
+        height: 30px;
+        background: white;
+      }
+        .buttons {
+          margin-top: 10px;
+          width: 200px;
+          height: 30px;
+          border-radius: 3px;
+          &.login {
+            background: rgb(133, 206, 97);
+          }
 
-        &.login {
-          background: palegreen;
-        }
-
-        &.signin {
-          background: red;
-        }
+          &.signup {
+            background: red;
+          }
       }
     }
-
   }
-
 }
 </style>

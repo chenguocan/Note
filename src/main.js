@@ -6,9 +6,9 @@ import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.config.productionTip = false
-axios.defaults.baseURL = '//note-server.hunger-valley.com';
-axios.defaults.headers.post['Content-Type'] = 'application/www-form-urlencoded';
+axios.defaults.baseURL = 'http://note-server.hunger-valley.com';
 axios.defaults.withCredentials = true;
+axios.defaults.headers.post['Content-Type'] = 'application/www-form-urlencoded';
 Vue.use(VueAxios, axios)
 new Vue({
   router,
