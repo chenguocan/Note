@@ -1,18 +1,38 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <side-bar>
+      <Avatar></Avatar>
+      <NavBar></NavBar>
+    </side-bar>
+    <router-view/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
+import SideBar from "@/components/SideBar";
+import Avatar from "@/components/Avatar";
+import NavBar from "@/components/NavBar";
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
-  }
+  components: {NavBar, Avatar, SideBar},
+
 }
 </script>
+<style lang="scss">
+@import "~@/assets/iconfont.css";
+
+.home {
+  height: 700px;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
