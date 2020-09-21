@@ -21,6 +21,11 @@ export default {
       password: '123456',
     }
   },
+  computed: {
+    isLogin(){
+      return this.$store.state.isLogin;
+    }
+  },
   methods: {
     async login(e) {
       e.preventDefault();
@@ -28,7 +33,9 @@ export default {
           {username: 'hunger', password: "123456"}
       );
       if(res.status===200){
-        await this.$router.push("/home");
+        this.$store.commit("changeLog",true);
+        console.log(this.isLogin);
+        await this.$router.push("/home/noteList");
       }
     }
   }

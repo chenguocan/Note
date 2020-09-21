@@ -17,7 +17,17 @@ import NavBar from "@/components/NavBar";
 export default {
   name: 'Home',
   components: {NavBar, Avatar, SideBar},
-
+  computed:{
+     isLogin(){
+       return this.$store.state.isLogin;
+     }
+  },
+  created(){
+    if(this.isLogin===false){
+      console.log(this.isLogin);
+      window.alert("请登录账号");
+    }
+  }
 }
 </script>
 <style lang="scss">

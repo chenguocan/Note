@@ -8,21 +8,26 @@
 
 <script lang="ts">
 export default {
-name: "NavBar"
-}
+  name: 'NavBar'
+};
 </script>
 
 <style lang="scss" scoped>
-.iconList{
+.iconList {
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
-  .icons {
-    width: 100%;
-    padding:10px 15px 10px 15px;
-  }
-  .current{
-    background: rgb(94, 98, 101);
+    .icons {
+      width: 100%;
+      padding: 10px 15px 10px 15px;
+    }
+
+    .exit {
+      position: absolute;
+
+    }
+    .current {
+      background: rgb(94, 98, 101);
   }
 }
 
