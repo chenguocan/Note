@@ -2,18 +2,26 @@
   <div class="myNotes">
     <slot></slot>
     <div class="titleBar">
-      <div class="updateDate">更新时间</div>
-      <div class="title">标题</div>
-    </div>
-    <div class="dateList">
-
+      <div class="updateDate">
+        <div>
+          <span>更新时间</span>
+          <span>标题</span>
+        </div>
+        <ul>
+          <li v-for="item in noteList" :key="item.id">
+            <div class="dataMessage">{{ item.createdAt }}</div>
+            <div class="dataMessage">{{ item.title }}</div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'NoteBar'
+  name: 'NoteBar',
+  props: ['noteList'],
 };
 </script>
 
@@ -22,36 +30,35 @@ export default {
 
 .myNotes {
   height: 100%;
-  min-width: 250px;
+  width: 400px;
   border: 1px solid $line-color;
   background: rgb(238, 238, 238);
 
-
   .titleBar {
-    min-height: 30px;
     display: flex;
-    justify-content: space-between;
-    font-size: 10px;
-    align-items: center;
-
-    .title {
-      line-height: 30px;
-      padding: 0 100px 0 10px;
-      border: 1px solid rgb(223, 223, 223);
-
-    }
+    justify-content: flex-start;
 
     .updateDate {
-      line-height: 30px;
-      padding-right: 100px;
-      border: 1px solid rgb(223, 223, 223);
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      width: 100%;
+      span {
+        display: inline-block;
+        width: 50%;
+        margin-bottom: 10px;
+      }
+      ul {
+        li {
+          .dataMessage {
+            display: inline-block;
+            width: 50%;
+            overflow: hidden;
+          }
+        }
+      }
     }
   }
 
-  .dateList {
-    width: 100%;
-    height: 90%;
-    overflow: hidden;
-  }
 }
 </style>

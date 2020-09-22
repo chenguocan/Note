@@ -1,41 +1,56 @@
 <template>
-  <div>
-    <NoteBar>
+  <div class="myNote">
+    <NoteBar :noteList="noteList">
       <div class="tag">
         <p>oK</p>
-        <button class="addNote">添加笔记</button>
+        <button class="addNewNote">添加笔记</button>
       </div>
     </NoteBar>
+    <Note ></Note>
   </div>
 </template>
 
 <script lang="ts">
 import NoteBar from '../components/NoteBar.vue';
+import Note from '../components/Note.vue';
+
 export default {
   name: 'MyNotes',
-  components: {NoteBar}
+  components: {Note, NoteBar},
+  computed:{
+    noteList(){
+      return this.$store.state.noteList;
+    }
+  },
+  created() {
+    console.log(this.noteList);
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "~@/assets/styles/valiable.scss";
-.tag {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 50px;
-  width: 100%;
-  background: rgb(247, 247, 247);
-  position: relative;
 
-  .addNote {
-    position: absolute;
-    right: 0;
-    color: gray;
-    margin-right: 3px;
-    padding: 1px;
-    border: 1px solid $line-color;
-    background: white;
+.myNote {
+  width: 100%;
+  display: flex;
+  .tag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+    width: 100%;
+    position: relative;
+    background: rgb(247, 247, 247);
+    .addNewNote {
+      position: absolute;
+      right: 0;
+      color: gray;
+      margin-right: 3px;
+      padding: 1px;
+      border: 1px solid $line-color;
+      background: white;
+    }
   }
 }
 </style>

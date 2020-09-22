@@ -1,6 +1,6 @@
 <template>
   <div class="noteBooks">
-    <button class="addNote">+新建笔记本</button>
+    <button class="addNewNote">+新建笔记本</button>
     <hr/>
     <h5>笔记本列表({{noteList.length}})</h5>
     <div class="noteBooksList">
@@ -29,6 +29,7 @@ export default {
       if (this.isLogin === true) {
         const {data: res} = await this.$http.get('/notebooks');
         this.noteList = res.data;
+        this.$store.commit('getNoteList',this.noteList);
       }
     }
   },
@@ -40,11 +41,11 @@ export default {
 
 <style lang="scss" scoped>
 .noteBooks {
-  width: 95%;
+  width: 100%;
   height: inherit;
   background: rgb(238, 238, 238);
 
-  .addNote {
+  .addNewNote {
     padding: 3px 0;
     margin: 5px 0;
     color: rgb(132, 134, 132);
@@ -61,7 +62,6 @@ export default {
     border-radius: 5px;
     transform: translateY(10px);
     overflow: hidden;
-
     ul {
       li {
         text-align: left;
