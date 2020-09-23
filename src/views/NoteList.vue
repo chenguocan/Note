@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       noteList: [],
+      trashList:[],
     };
   },
   computed: {
@@ -31,10 +32,18 @@ export default {
         this.noteList = res.data;
         this.$store.commit('getNoteList',this.noteList);
       }
+    },
+    async getTrashList() {
+      if (this.isLogin === true) {
+        const {data: res} = await this.$http.get('/notes/trash');
+        this.trashList = res.data;
+        this.$store.commit('getTrashList',this.trashList);
+      }
     }
   },
   created() {
     this.getNoteList();
+    this.getTrashList();
   }
 };
 </script>

@@ -24,7 +24,6 @@ export default {
   },
   created(){
     if(this.isLogin===false){
-      console.log(this.isLogin);
       window.alert("请登录账号");
     }
   }

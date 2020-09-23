@@ -10,10 +10,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import NoteBar from '../components/NoteBar.vue';
 import Note from '../components/Note.vue';
-
 export default {
   name: 'MyNotes',
   components: {Note, NoteBar},
@@ -23,7 +22,7 @@ export default {
     }
   },
   created() {
-    console.log(this.noteList);
+
   }
 };
 </script>

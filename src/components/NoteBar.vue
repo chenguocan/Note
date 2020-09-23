@@ -18,10 +18,25 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
+
+import dayjs from "dayjs";
+
 export default {
   name: 'NoteBar',
   props: ['noteList'],
+  data(){
+    return{
+      dateList:[],
+    }
+  },
+  created(){
+    this.dateList=this.noteList;
+    for(let i=0;i<this.dateList.length;i++){
+      this.dateList[i].createdAt=dayjs(this.dateList[i].createdAt).format('YYYY-MM-DD');
+    }
+  }
+
 };
 </script>
 
@@ -53,7 +68,9 @@ export default {
           .dataMessage {
             display: inline-block;
             width: 50%;
+            text-overflow: ellipsis;
             overflow: hidden;
+            white-space: nowrap;
           }
         }
       }

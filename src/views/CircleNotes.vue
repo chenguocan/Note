@@ -16,20 +16,10 @@ import Note from '../components/Note.vue';
 export default {
   name: 'CircleNotes',
   components: {Note, NoteBar},
-  data(){
-    return{
-      trashList:[],
+  computed:{
+    trashList(){
+      return this.$store.state.trashList;
     }
-  },
-  methods:{
-   async getTrashList(){
-      const {data:res}=await this.$http.get("/notes/trash");
-      console.log(res.data);
-      this.trashList=res.data;
-    }
-  },
-  created() {
-    this.getTrashList();
   }
 };
 </script>

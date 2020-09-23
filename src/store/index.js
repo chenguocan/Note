@@ -16,7 +16,7 @@ const store= new Vuex.Store({
     getNoteList(state,noteList){
       state.noteList=noteList;
     },
-    getTrash(state,trashList){
+    getTrashList(state,trashList){
       state.trashList=trashList;
     }
   },
