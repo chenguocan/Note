@@ -8,8 +8,8 @@
           <span>标题</span>
         </div>
         <ul>
-          <li v-for="item in noteList" :key="item.id">
-            <div class="dataMessage">{{ item.createdAt }}</div>
+          <li v-for="item in noteList" :key="item.id" @click="currentId(item.id)">
+            <div class="dataMessage">{{ item.updatedAt }}</div>
             <div class="dataMessage">{{ item.title }}</div>
           </li>
         </ul>
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="js">
-
+import Bus from "@/event/Bus";
 import dayjs from "dayjs";
 
 export default {
@@ -28,13 +28,22 @@ export default {
   data(){
     return{
       dateList:[],
+      currentNote:[],
+    }
+  },
+  methods:{
+    currentId(id){
+      this.currentNote=this.dateList.filter((item)=>item.id===id);
+      Bus.$emit('currentNote',this.currentNote);
     }
   },
   created(){
     this.dateList=this.noteList;
     for(let i=0;i<this.dateList.length;i++){
       this.dateList[i].createdAt=dayjs(this.dateList[i].createdAt).format('YYYY-MM-DD');
+      this.dateList[i].updatedAt=dayjs(this.dateList[i].updatedAt).format('YYYY-MM-DD');
     }
+    console.log(this.dateList);
   }
 
 };

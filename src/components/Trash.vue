@@ -2,35 +2,16 @@
   <div class="note">
     <div class="header">
       <div class="date">
-        <span>创建时间:{{current[0].createdAt}}</span>
-        <span>更新时间:{{current[0].updatedAt}}</span>
+        <span>创建时间:</span>
+        <span>更新时间:</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Bus from "@/event/Bus";
 export default {
   name: "Note",
-  data(){
-    return{
-      current:[],
-    }
-  },
-  methods:{
-
-  },
-  mounted() {
-    Bus.$on('currentNote',function(val){//监听first组件的txt事件
-      this.current=val;
-      Bus.$forceUpdate();
-      console.log(this.current);
-    }.bind(this));
-  },
-  beforeDestroy() {
-    Bus.$off('txt');
-  }
 }
 </script>
 

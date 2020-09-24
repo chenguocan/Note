@@ -5,17 +5,17 @@
         <p>回收站</p>
       </div>
     </NoteBar>
-    <Note></Note>
+    <Trash></Trash>
   </div>
 </template>
 
 <script lang="ts">
 import NoteBar from '../components/NoteBar.vue';
-import Note from '../components/Note.vue';
+import Trash from '../components/Trash.vue';
 
 export default {
   name: 'CircleNotes',
-  components: {Note, NoteBar},
+  components: {Trash, NoteBar},
   computed:{
     trashList(){
       return this.$store.state.trashList;
