@@ -30,11 +30,12 @@ export default {
     async login(e) {
       e.preventDefault();
       const res = await this.$http.post("/auth/login",
-          {username: 'hunger', password: "123456"}
-      );
+          {username: this.username, password: this.password}
+      ).catch(()=>{
+        return window.alert('登录失败');
+      });
       if(res.status===200){
         this.$store.commit("changeLog",true);
-        console.log(this.isLogin);
         await this.$router.push("/home/noteList");
       }
     }

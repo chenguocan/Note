@@ -2,8 +2,8 @@
   <div class="note">
     <div class="header">
       <div class="date">
-        <span>创建时间:{{current[0].createdAt}}</span>
-        <span>更新时间:{{current[0].updatedAt}}</span>
+        <span>创建时间:{{current===''?'':current[0].createdAt}}</span>
+        <span>更新时间:{{current===''?'':current[0].updatedAt}}</span>
       </div>
     </div>
   </div>
@@ -15,7 +15,7 @@ export default {
   name: "Note",
   data(){
     return{
-      current:[],
+      current:'',
     }
   },
   methods:{
