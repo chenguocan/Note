@@ -2,16 +2,13 @@
   <div class="myNote">
     <NoteBar :noteList="noteList">
       <div class="tag">
-        <el-dropdown trigger="click">
+        <el-dropdown trigger="click"   @command="currentTitle">
           <span class="el-dropdown-link">
-            下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+            {{current==='' ? '选择标题' : current}}
+            <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>黄金糕</el-dropdown-item>
-            <el-dropdown-item>狮子头</el-dropdown-item>
-            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-            <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+            <el-dropdown-item v-for="item in noteList" :key="item.id" :command="item.title">{{item.title}}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <button class="addNewNote">添加笔记</button>
@@ -28,17 +25,31 @@ import Note from '../components/Note.vue';
 export default {
   name: 'MyNotes',
   components: {Note, NoteBar},
+  data(){
+    return{
+        current:''
+    }
+  },
   computed: {
     noteList() {
       return this.$store.state.noteList;
     }
   },
+  mounted(){
+    console.log(this.noteList);
+  },
+  methods:{
+    currentTitle(title){
+      console.log(title);
+      this.current=title;
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "~@/assets/styles/valiable.scss";
-
+@import "~@/assets/styles/style.scss";
 .myNote {
   width: 100%;
   display: flex;
