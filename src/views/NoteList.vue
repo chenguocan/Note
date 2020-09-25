@@ -33,6 +33,7 @@ export default {
         const {data: res} = await this.$http.get('/notebooks');
         this.noteList = res.data;
         this.$store.commit('getNoteList', this.noteList);
+        console.log(this.noteList);
       }
     },
     async getTrashList() {

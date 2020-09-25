@@ -21,9 +21,6 @@ export default {
       return this.$store.state.noteList;
     }
   },
-  created() {
-
-  }
 };
 </script>
 

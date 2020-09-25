@@ -7,9 +7,8 @@
       </div>
     </div>
     <div class="main">
-      <div class="title">
         <span>{{current===''?'选择标题':current[0].title}}</span>
-      </div>
+        <textarea   class="message" v-model="message" maxlength="8000"></textarea>
     </div>
   </div>
 </template>
@@ -21,16 +20,27 @@ export default {
   data(){
     return{
       current:'',
+      message:'',
     }
   },
   methods:{
-
+    async getBook(){
+      const {data:res}=await this.$http.get('/notes/from/'+this.current[0].id);
+      console.log(res.data);
+      if(res.data.length===0){
+        this.message='';
+        return;
+      }
+      console.log('length='+res.data.length);
+      const currentIndex=res.data.length;
+      this.message=res.data[currentIndex-1].content;
+    }
   },
   mounted() {
     Bus.$on('currentNote',function(val){
       this.current=val;
+      this.getBook();
       Bus.$forceUpdate();
-      console.log(this.current);
     }.bind(this));
   },
   beforeDestroy() {
@@ -60,6 +70,18 @@ export default {
     padding:30px 20px;
     font-size: 20px;
     text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    .message{
+      overflow: hidden;
+      border: none;
+      outline: none;
+      margin: 30px;
+      padding: 20px;
+      height: 500px;
+      resize: none;
+    }
   }
 }
 </style>
