@@ -7,11 +7,6 @@
       <div class="noteBooksList">
         <ul>
           <li v-for="item in noteList" :key="item.id">{{ item.title }}</li>
-          <li>12313</li>
-          <li>12313</li>
-          <li>12313</li>
-          <li>12313</li>
-          <li>12313</li>
         </ul>
       </div>
     </div>
