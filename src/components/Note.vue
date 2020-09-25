@@ -22,10 +22,9 @@ export default {
 
   },
   mounted() {
-    Bus.$on('currentNote',function(val){//监听first组件的txt事件
+    Bus.$on('currentNote',function(val){
       this.current=val;
       Bus.$forceUpdate();
-      console.log(this.current);
     }.bind(this));
   },
   beforeDestroy() {

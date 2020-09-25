@@ -2,11 +2,18 @@
   <div class="noteBooks">
     <button class="addNewNote">+新建笔记本</button>
     <hr/>
-    <h5>笔记本列表({{noteList.length}})</h5>
-    <div class="noteBooksList">
-      <ul>
-        <li v-for="item in noteList" :key="item.id">{{ item.title }}</li>
-      </ul>
+    <h5 class="title">笔记本列表({{ noteList.length }})</h5>
+    <div class="booksBox">
+      <div class="noteBooksList">
+        <ul>
+          <li v-for="item in noteList" :key="item.id">{{ item.title }}</li>
+          <li>12313</li>
+          <li>12313</li>
+          <li>12313</li>
+          <li>12313</li>
+          <li>12313</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -17,7 +24,7 @@ export default {
   data() {
     return {
       noteList: [],
-      trashList:[],
+      trashList: [],
     };
   },
   computed: {
@@ -30,14 +37,14 @@ export default {
       if (this.isLogin === true) {
         const {data: res} = await this.$http.get('/notebooks');
         this.noteList = res.data;
-        this.$store.commit('getNoteList',this.noteList);
+        this.$store.commit('getNoteList', this.noteList);
       }
     },
     async getTrashList() {
       if (this.isLogin === true) {
         const {data: res} = await this.$http.get('/notes/trash');
         this.trashList = res.data;
-        this.$store.commit('getTrashList',this.trashList);
+        this.$store.commit('getTrashList', this.trashList);
       }
     }
   },
@@ -53,7 +60,9 @@ export default {
   width: 100%;
   height: inherit;
   background: rgb(238, 238, 238);
-
+  .title{
+    padding-bottom: 30px;
+  }
   .addNewNote {
     padding: 3px 0;
     margin: 5px 0;
@@ -62,18 +71,22 @@ export default {
     border: 1px solid rgb(132, 134, 132);
   }
 
-  .noteBooksList {
-    width: 70%;
-    height: 80%;
-    background: white;
+  .booksBox {
+    width: 680px;
+    height: 78%;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 5px;
-    transform: translateY(10px);
     overflow: hidden;
-    ul {
-      li {
-        text-align: left;
+    .noteBooksList {
+      width: 700px;
+      height: 100%;
+      background: white;
+      border-radius: 5px;
+      overflow: auto;
+      ul {
+        li {
+          text-align: left;
+        }
       }
     }
   }
