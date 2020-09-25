@@ -6,7 +6,7 @@
     <div class="booksBox">
       <div class="noteBooksList">
         <ul>
-          <li v-for="item in noteList" :key="item.id">{{ item.title }}</li>
+          <li v-for="item in noteList" :key="item.id">{{ item.title }}--------({{item.noteCounts}})</li>
         </ul>
       </div>
     </div>
@@ -33,7 +33,7 @@ export default {
         const {data: res} = await this.$http.get('/notebooks');
         this.noteList = res.data;
         this.$store.commit('getNoteList', this.noteList);
-        console.log(this.noteList);
+        console.log(res.data);
       }
     },
     async getTrashList() {
@@ -41,6 +41,7 @@ export default {
         const {data: res} = await this.$http.get('/notes/trash');
         this.trashList = res.data;
         this.$store.commit('getTrashList', this.trashList);
+
       }
     }
   },

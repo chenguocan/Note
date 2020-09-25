@@ -20,3 +20,13 @@ button,input{
 ul,ol,li{
   list-style: none;
 }
+
+.clearfix:after{
+  content: '';
+  display: block; /*或者 table*/
+  clear: both;
+}
+.clearfix{
+  zoom: 1; /* IE 兼容*/
+}
+
