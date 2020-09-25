@@ -7,8 +7,8 @@
       </div>
     </div>
     <div class="main">
-        <span>{{current===''?'选择标题':current[0].title}}</span>
-        <textarea   class="message" v-model="message" maxlength="8000"></textarea>
+        <input type="text" class="title" v-model="message.title" placeholder="选择标题"/>
+        <textarea   class="content" v-model="message.content" maxlength="8000"></textarea>
     </div>
   </div>
 </template>
@@ -20,20 +20,22 @@ export default {
   data(){
     return{
       current:'',
-      message:'',
+      message:{
+        title:'',
+        content:'',
+      },
     }
   },
   methods:{
     async getBook(){
       const {data:res}=await this.$http.get('/notes/from/'+this.current[0].id);
-      console.log(res.data);
+      this.message.title=this.current[0].title;
       if(res.data.length===0){
-        this.message='';
+        this.message.content='';
         return;
       }
-      console.log('length='+res.data.length);
       const currentIndex=res.data.length;
-      this.message=res.data[currentIndex-1].content;
+      this.message.content=res.data[currentIndex-1].content;
     }
   },
   mounted() {
@@ -53,8 +55,12 @@ export default {
 .note {
   height: 100%;
   width: 100%;
-  span{
+  .title,span{
     padding:0 20px 0 20px;
+  }
+  .title{
+    font-size: 16px;
+    color:gray;
   }
   .header {
     height: 30px;
@@ -73,7 +79,8 @@ export default {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    .message{
+    .content{
+      text-indent:32px;
       overflow: hidden;
       border: none;
       outline: none;

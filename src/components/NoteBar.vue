@@ -43,7 +43,6 @@ export default {
       this.dateList[i].createdAt=dayjs(this.dateList[i].createdAt).format('YYYY-MM-DD');
       this.dateList[i].updatedAt=dayjs(this.dateList[i].updatedAt).format('YYYY-MM-DD');
     }
-    console.log(this.dateList);
   }
 
 };
