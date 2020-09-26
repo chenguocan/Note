@@ -22,23 +22,10 @@ export default {
     return{
       current:'',
       noteList:'',
-      message:{
-        title:'',
-        content:'',
-      },
+      message:'',
     }
   },
   methods:{
-    async getBook(){
-      const {data:res}=await this.$http.get('/notes/from/'+this.current[0].id);
-      this.message.title=this.current[0].title;
-      if(res.data.length===0){
-        this.message.content='';
-        return;
-      }
-      const currentIndex=res.data.length;
-      this.message.content=res.data[currentIndex-1].content;
-    },
     async deleteNote(){
       if(this.message.content!==''){
         return window.alert('需要清空笔记内容才能删除');
@@ -59,7 +46,8 @@ export default {
   mounted() {
     Bus.$on('currentNote',function(val){
       this.current=val;
-      this.getBook();
+      console.log(val);
+      this.message=val[0];
       Bus.$forceUpdate();
     }.bind(this));
   },

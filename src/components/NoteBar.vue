@@ -8,7 +8,7 @@
           <span>标题</span>
         </div>
         <ul>
-          <li v-for="item in noteList" :key="item.id" @click="currentId(item.id)">
+          <li v-for="item in dateList" :key="item.id" @click="currentId(item.id)">
             <div class="dataMessage">{{ item.updatedAt }}</div>
             <div class="dataMessage">{{ item.title }}</div>
           </li>
@@ -24,7 +24,7 @@ import dayjs from "dayjs";
 
 export default {
   name: 'NoteBar',
-  props: ['noteList'],
+  props: ['currentList'],
   data(){
     return{
       dateList:[],
@@ -35,16 +35,25 @@ export default {
     currentId(id){
       this.currentNote=this.dateList.filter((item)=>item.id===id);
       Bus.$emit('currentNote',this.currentNote);
+    },
+    async getCurrentNote(id){
+      const {data:res}=await this.$http.get('/notes/from/'+id);
+      this.dateList=res.data;
+      this.formatTime();
+      console.log(this.dateList);
+    },
+    formatTime(){
+      for(let i=0;i<this.dateList.length;i++){
+        this.dateList[i].createdAt=dayjs(this.dateList[i].createdAt).format('YYYY-MM-DD');
+        this.dateList[i].updatedAt=dayjs(this.dateList[i].updatedAt).format('YYYY-MM-DD');
+      }
     }
   },
-  created(){
-    this.dateList=this.noteList;
-    for(let i=0;i<this.dateList.length;i++){
-      this.dateList[i].createdAt=dayjs(this.dateList[i].createdAt).format('YYYY-MM-DD');
-      this.dateList[i].updatedAt=dayjs(this.dateList[i].updatedAt).format('YYYY-MM-DD');
+  watch:{
+    currentList(){
+      this.getCurrentNote(this.currentList.id);
     }
-  }
-
+  },
 };
 </script>
 
@@ -84,6 +93,5 @@ export default {
       }
     }
   }
-
 }
 </style>
