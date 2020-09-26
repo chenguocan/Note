@@ -12,7 +12,20 @@
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <button class="addNewNote">添加笔记</button>
+
+        <!--添加笔记-->
+        <el-button class="addNewBtn" type="text" @click="changeDialogVisible(true)">添加笔记</el-button>
+        <el-dialog title="添加笔记" :visible.sync="addNoteVisible">
+          <el-form :model="addNote">
+            <el-form-item label="添加标题">
+              <el-input v-model="addNote.title" placeholder="请输入标题"></el-input>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="changeDialogVisible(false)">取 消</el-button>
+            <el-button type="primary" @click="submitNote">确 定</el-button>
+          </div>
+        </el-dialog>
       </div>
     </NoteBar>
     <Note></Note>
@@ -29,7 +42,10 @@ export default {
   data() {
     return {
       current: '',
-      currentList: '',
+      addNoteVisible:false,
+      addNote:{
+        title:'',
+      }
     }
   },
   computed: {
@@ -37,14 +53,23 @@ export default {
       return this.$store.state.noteList;
     }
   },
-  mounted() {
-    console.log(this.noteList);
-    console.log(this.current.title);
-  },
   methods: {
     currentTitle(id) {
       this.current = this.noteList.filter(item=>item.id===id)[0];
-      this.$emit('xxx','hi');
+    },
+    changeDialogVisible(visible){
+      this.addNoteVisible=visible;
+    },
+    submitNote(){
+      this.addNoteVisible=false;
+      console.log(this.addNote);
+      this.createdNewNote();
+    },
+    async createdNewNote(){
+      const res=await this.$http.post('/notebooks',{title:this.addNote.title});
+      if(res.status!==200){
+        return window.alert("添加笔记失败");
+      }
     }
   }
 };
@@ -67,14 +92,12 @@ export default {
     position: relative;
     background: rgb(247, 247, 247);
 
-    .addNewNote {
+    .addNewBtn {
       position: absolute;
       right: 0;
       color: gray;
       margin-right: 3px;
       padding: 1px;
-      border: 1px solid $line-color;
-      background: white;
     }
   }
 }

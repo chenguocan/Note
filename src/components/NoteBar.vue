@@ -40,7 +40,6 @@ export default {
       const {data:res}=await this.$http.get('/notes/from/'+id);
       this.dateList=res.data;
       this.formatTime();
-      console.log(this.dateList);
     },
     formatTime(){
       for(let i=0;i<this.dateList.length;i++){

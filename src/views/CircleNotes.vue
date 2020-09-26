@@ -1,6 +1,6 @@
 <template>
   <div class="trashNote">
-    <NoteBar :noteList="trashList">
+    <NoteBar :currentList="trashList">
       <div class="tag">
         <p>回收站</p>
       </div>

@@ -2,8 +2,8 @@
   <div class="note">
     <div class="header">
       <div class="date">
-        <span>创建时间:{{current===''?'':current[0].createdAt}}</span>
-        <span>更新时间:{{current===''?'':current[0].updatedAt}}</span>
+        <span>创建时间:{{message===''?'':message.createdAt}}</span>
+        <span>更新时间:{{message===''?'':message.updatedAt}}</span>
         <button class="delete clearfix" @click="deleteNote">删除</button>
       </div>
     </div>
@@ -20,7 +20,6 @@ export default {
   name: "Note",
   data(){
     return{
-      current:'',
       noteList:'',
       message:'',
     }
@@ -39,15 +38,14 @@ export default {
         this.noteList = res.data;
         this.$store.commit('getNoteList', this.noteList);
       }else{
-        window.alert("删除失败,回收站内还有该笔记本");
+        return window.alert("删除失败,回收站内还有该笔记本");
       }
     }
   },
   mounted() {
     Bus.$on('currentNote',function(val){
-      this.current=val;
-      console.log(val);
       this.message=val[0];
+      console.log(this.message);
       Bus.$forceUpdate();
     }.bind(this));
   },
