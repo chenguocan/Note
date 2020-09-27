@@ -28,7 +28,7 @@
         </el-dialog>
       </div>
     </NoteBar>
-    <Note></Note>
+    <Note :current="current"></Note>
   </div>
 </template>
 
@@ -62,6 +62,7 @@ export default {
   methods: {
     currentTitle(id) {
       this.current = this.noteList.filter(item=>item.id===id)[0];
+      console.log(this.current);
     },
     changeDialogVisible(visible){
       this.addNoteVisible=visible;
