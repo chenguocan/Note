@@ -26,10 +26,8 @@ export default {
   },
   methods:{
     async deleteNote(){
-      if(this.message.content!==''){
-        return window.alert('需要清空笔记内容才能删除');
-      }
-      const res=await this.$http.delete('/notebooks/'+this.current[0].id).catch(()=>{
+/*      console.log(this.message);
+      const res=await this.$http.delete('/notebooks/'+1731).catch(()=>{
         return window.alert("删除失败,回收站内还有该笔记本");
       });
       if(res.status===200){
@@ -39,7 +37,7 @@ export default {
         this.$store.commit('getNoteList', this.noteList);
       }else{
         return window.alert("删除失败,回收站内还有该笔记本");
-      }
+      }*/
     }
   },
   mounted() {

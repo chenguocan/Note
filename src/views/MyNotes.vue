@@ -49,8 +49,14 @@ export default {
     }
   },
   computed: {
-    noteList() {
-      return this.$store.state.noteList;
+    noteList: {
+      get() {
+        return this.$store.state.noteList;
+      },
+      set(data){
+        console.log(data);
+        return data;
+      }
     }
   },
   methods: {
@@ -62,15 +68,26 @@ export default {
     },
     submitNote(){
       this.addNoteVisible=false;
-      console.log(this.addNote);
       this.createdNewNote();
+      /*this.$nextTick(function (){
+        this.getNoteList();
+      });*/
+      this.getNoteList();
     },
     async createdNewNote(){
+      console.log('1');
       const res=await this.$http.post('/notebooks',{title:this.addNote.title});
       if(res.status!==200){
         return window.alert("添加笔记失败");
       }
-    }
+    },
+    async getNoteList() {
+      console.log('2');
+        const {data: res} = await this.$http.get('/notebooks');
+        this.noteList = res.data;
+        console.log(res);
+        this.$store.commit('getNoteList', this.noteList);
+    },
   }
 };
 </script>
