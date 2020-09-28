@@ -9,7 +9,7 @@
         </div>
         <ul>
           <li v-for="item in dateList" :key="item.id" @click="currentId(item.id)">
-            <div class="dataMessage">{{ item.updatedAt }}</div>
+            <div class="dataMessage">{{ item.updatedAt }} </div>
             <div class="dataMessage">{{ item.title }}</div>
           </li>
         </ul>
@@ -53,6 +53,11 @@ export default {
       this.getCurrentNote(this.currentList.id);
     }
   },
+  created(){
+    if(this.currentList.id) {
+      this.getCurrentNote(this.currentList.id);
+    }
+  }
 };
 </script>
 

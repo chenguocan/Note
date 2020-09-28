@@ -8,7 +8,8 @@
                 <i class="el-icon-arrow-down el-icon--right"></i>
               </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="item in noteList" :key="item.id" :command="item.id">{{ item.title }}
+            <el-dropdown-item v-for="item in noteList" :key="item.id" :command="item.id">
+              {{ item.title }}
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -59,10 +60,15 @@ export default {
 
     }
   },
+  created(){
+      if(this.noteList.length!==0) {
+        this.current = this.noteList[0];
+      }
+
+  },
   methods: {
     currentTitle(id) {
       this.current = this.noteList.filter(item=>item.id===id)[0];
-      console.log(this.current);
     },
     changeDialogVisible(visible){
       this.addNoteVisible=visible;
@@ -70,10 +76,7 @@ export default {
     submitNote(){
       this.addNoteVisible=false;
       this.createdNewNote();
-      /*this.$nextTick(function (){
-        this.getNoteList();
-      });*/
-/*      this.getNoteList();*/
+
     },
     async createdNewNote(){
       const res=await this.$http.post('/notebooks',{title:this.addNote.title});
@@ -81,14 +84,8 @@ export default {
         return window.alert("添加笔记失败");
       }
       const {data: res2} = await this.$http.get('/notebooks');
-      console.log(res2.data);
       this.noteList=res2.data;
     },
-/*    async getNoteList() {
-        const {data: res} = await this.$http.get('/notebooks');
-        this.noteList = res.data;
-        this.$store.commit('getNoteList', this.noteList);
-    },*/
   }
 };
 </script>

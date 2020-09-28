@@ -4,7 +4,7 @@
       <div class="date">
         <span>创建时间:{{message===''?'':message.createdAt}}</span>
         <span>更新时间:{{message===''?'':message.updatedAt}}</span>
-        <button class="delete clearfix" @click="deleteNote">删除</button>
+        <i class="el-icon-delete-solid delete"  @click="deleteNote"></i>
       </div>
     </div>
     <div class="main">
@@ -35,7 +35,7 @@ export default {
         const {data: res} = await this.$http.get('/notebooks');
         this.noteList = res.data;
         this.$store.commit('getNoteList', this.noteList);
-      }else{
+      }else {
         return window.alert("删除失败,回收站内还有该笔记本");
       }
     }
@@ -43,13 +43,12 @@ export default {
   mounted() {
     Bus.$on('currentNote',function(val){
       this.message=val[0];
-      console.log(this.message);
       Bus.$forceUpdate();
     }.bind(this));
   },
   beforeDestroy() {
     Bus.$off('currentNote');
-  }
+  },
 }
 </script>
 
@@ -76,10 +75,13 @@ export default {
       position: relative;
       flex-wrap: nowrap;
       .delete{
+
         right: 30px;
         position: absolute;
         line-height: inherit;
+        cursor:pointer;
       }
+
     }
   }
   .main {

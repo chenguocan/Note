@@ -1,6 +1,6 @@
 .el-dropdown-menu{
-  height: 500px;
-  overflow-y:scroll;
+  max-height: 500px;
+  overflow-y:auto;
   overflow-x:hidden ;
   margin-left: 100px;
 }
