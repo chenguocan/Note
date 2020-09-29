@@ -77,11 +77,11 @@ export default {
       this.createdNewNote();
     },
     async createdNewNote(){
-      const res=await this.$http.post('/notes/to/'+this.current.id,{title:this.addNote.title,content:this.content});
+      const res=await this.$api.addNote(this.current.id,{title:this.addNote.title,content:this.content});
       if(res.status!==200){
         return window.alert("添加笔记失败");
       }
-      const res2 = await this.$http.get('/notebooks');
+      const res2 = await this.$api.getNote();
       console.log(res2);
     },
   },

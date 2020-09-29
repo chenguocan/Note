@@ -37,7 +37,7 @@ export default {
       Bus.$emit('currentNote',this.currentNote);
     },
     async getCurrentNote(id){
-      const {data:res}=await this.$http.get('/notes/from/'+id);
+      const {data:res}=await this.$api.getNotes(id);
       this.dateList=res.data;
       this.formatTime();
     },

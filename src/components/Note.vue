@@ -32,13 +32,13 @@ export default {
   methods: {
     async deleteNote() {
       console.log(this.message);
-      const res = await this.$http.delete('/notes/' + this.message.id);
+      const res = await this.$api.deleteNotes(this.message.id);
       if (res.status === 200) {
         window.alert('删除成功');
       }
     },
     async submitUpdate(id, messageInfo) {
-      const res = await this.$http.patch('/notes/' + id, messageInfo)
+      const res = await this.$api.updateNotes( id, messageInfo)
       if(res.status!==200){
         return window.alert('输入信息失败');
       }

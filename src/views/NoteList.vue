@@ -6,7 +6,7 @@
     <div class="booksBox">
       <div class="noteBooksList">
         <ul>
-          <li v-for="item in noteList" :key="item.id" @click="intoNote(item.id)">{{ item.title }}--------({{item.noteCounts}})</li>
+          <li v-for="item in noteList" :key="item.id" @click="intoNote(item.id)"><i class="el-icon-notebook-1"></i>{{ item.title }}<span>({{item.noteCounts}})</span></li>
         </ul>
       </div>
     </div>
@@ -30,14 +30,15 @@ export default {
   methods: {
     async getNoteList() {
       if (this.isLogin === true) {
-        const {data: res} = await this.$http.get('/notebooks');
+        const {data: res} =await this.$api.getNote();
         this.noteList = res.data;
         this.$store.commit('getNoteList', this.noteList);
       }
     },
     async getTrashList() {
       if (this.isLogin === true) {
-        const {data: res} = await this.$http.get('/notes/trash');
+        const {data: res} = await this.$api.getTrash();
+        console.log(res);
         this.trashList = res.data;
         this.$store.commit('getTrashList', this.trashList);
 
@@ -90,6 +91,12 @@ export default {
       ul {
         li {
           text-align: left;
+          padding:10px;
+          cursor: pointer;
+          border-bottom: 1px solid rgb(179, 192, 200);
+          span{
+            color:gray;
+          }
         }
       }
     }

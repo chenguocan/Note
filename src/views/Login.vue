@@ -29,11 +29,7 @@ export default {
   methods: {
     async login(e) {
       e.preventDefault();
-      const res = await this.$http.post("/auth/login",
-          {username: this.username, password: this.password}
-      ).catch(()=>{
-        return window.alert('登录失败');
-      });
+      const res=await this.$api.login({username: this.username, password: this.password});
       if(res.status===200){
         this.$store.commit("changeLog",true);
         await this.$router.push("/home/noteList");
