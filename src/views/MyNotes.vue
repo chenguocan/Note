@@ -57,14 +57,12 @@ export default {
       set(data){
         this.$store.commit('getNoteList', data);
       }
-
     }
   },
   created(){
       if(this.noteList.length!==0) {
         this.current = this.noteList[0];
       }
-
   },
   methods: {
     currentTitle(id) {

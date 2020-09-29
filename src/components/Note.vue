@@ -2,47 +2,53 @@
   <div class="note">
     <div class="header">
       <div class="date">
-        <span>创建时间:{{message===''?'':message.createdAt}}</span>
-        <span>更新时间:{{message===''?'':message.updatedAt}}</span>
-        <i class="el-icon-delete-solid delete"  @click="deleteNote"></i>
+        <span>创建时间:{{ message === '' ? '' : message.createdAt }}</span>
+        <span>更新时间:{{ message === '' ? '' : message.updatedAt }}</span>
+        <i class="el-icon-delete-solid delete" @click="deleteNote"></i>
       </div>
     </div>
     <div class="main">
-        <label><input type="text" class="title" v-model="message.title" placeholder="选择标题"/></label>
-        <textarea   class="content" v-model="message.content" maxlength="8000"></textarea>
+      <label><input type="text" class="title" v-model="message.title" @input="changeInput" placeholder="选择标题"/></label>
+      <textarea class="content" v-model="message.content" @input="changeInput" maxlength="8000"></textarea>
     </div>
   </div>
 </template>
 
 <script>
 import Bus from "@/event/Bus";
+
 export default {
   name: "Note",
-  props:['current'],
-  data(){
-    return{
-      noteList:'',
-      message:'',
+  props: ['current'],
+  data() {
+    return {
+      message: '',
+      changeMessage: {
+        title: '',
+        content: '',
+      },
     }
   },
-  methods:{
-    async deleteNote(){
-      const res=await this.$http.delete('/notebooks/'+this.current.id).catch(()=>{
-        return window.alert("删除失败,回收站内还有该笔记本");
-      });
-      if(res.status===200){
+  methods: {
+    async deleteNote() {
+      console.log(this.message);
+      const res = await this.$http.delete('/notes/' + this.message.id);
+      if (res.status === 200) {
         window.alert('删除成功');
-        const {data: res} = await this.$http.get('/notebooks');
-        this.noteList = res.data;
-        this.$store.commit('getNoteList', this.noteList);
-      }else {
-        return window.alert("删除失败,回收站内还有该笔记本");
       }
+    },
+    async submitUpdate(id, messageInfo) {
+      const res = await this.$http.patch('/notebooks/' + id, messageInfo)
+      console.log(res);
+    },
+    changeInput() {
+      this.changeMessage.title = this.message.title;
+      this.changeMessage.content = this.message.content;
     }
   },
   mounted() {
-    Bus.$on('currentNote',function(val){
-      this.message=val[0];
+    Bus.$on('currentNote', function (val) {
+      this.message = val[0];
       Bus.$forceUpdate();
     }.bind(this));
   },
@@ -56,17 +62,21 @@ export default {
 .note {
   height: 100%;
   width: 100%;
-  .title,span{
-    padding:0 20px 0 20px;
+
+  .title, span {
+    padding: 0 20px 0 20px;
   }
-  .title{
+
+  .title {
     font-size: 16px;
-    color:#36292f;
+    color: #36292f;
   }
+
   .header {
     min-height: 30px;
     border-bottom: 1px solid gray;
-    .date{
+
+    .date {
       display: flex;
       text-align: left;
       font-size: 10px;
@@ -74,16 +84,18 @@ export default {
       line-height: 30px;
       position: relative;
       flex-wrap: nowrap;
-      .delete{
+
+      .delete {
 
         right: 30px;
         position: absolute;
         line-height: inherit;
-        cursor:pointer;
+        cursor: pointer;
       }
 
     }
   }
+
   .main {
     padding: 30px 20px;
     font-size: 20px;
@@ -91,13 +103,14 @@ export default {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-      .content {
-        overflow: hidden;
-        border: none;
-        outline: none;
-        margin: 30px;
-        height: 500px;
-        resize: none;
+
+    .content {
+      overflow: hidden;
+      border: none;
+      outline: none;
+      margin: 30px;
+      height: 500px;
+      resize: none;
     }
   }
 }
