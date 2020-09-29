@@ -38,12 +38,15 @@ export default {
       }
     },
     async submitUpdate(id, messageInfo) {
-      const res = await this.$http.patch('/notebooks/' + id, messageInfo)
-      console.log(res);
+      const res = await this.$http.patch('/notes/' + id, messageInfo)
+      if(res.status!==200){
+        return window.alert('输入信息失败');
+      }
     },
     changeInput() {
       this.changeMessage.title = this.message.title;
       this.changeMessage.content = this.message.content;
+      this.submitUpdate(this.message.id,this.changeMessage);
     }
   },
   mounted() {

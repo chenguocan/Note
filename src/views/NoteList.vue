@@ -6,7 +6,7 @@
     <div class="booksBox">
       <div class="noteBooksList">
         <ul>
-          <li v-for="item in noteList" :key="item.id">{{ item.title }}--------({{item.noteCounts}})</li>
+          <li v-for="item in noteList" :key="item.id" @click="intoNote(item.id)">{{ item.title }}--------({{item.noteCounts}})</li>
         </ul>
       </div>
     </div>
@@ -42,6 +42,14 @@ export default {
         this.$store.commit('getTrashList', this.trashList);
 
       }
+    },
+    intoNote(id){
+      this.$router.push({
+        path:'/home/notesDetail',
+        query:{
+          id:id
+        }
+      });
     }
   },
   created() {

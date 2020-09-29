@@ -51,7 +51,7 @@ export default {
   watch:{
     currentList(){
       this.getCurrentNote(this.currentList.id);
-    }
+    },
   },
   created(){
     if(this.currentList.id) {
