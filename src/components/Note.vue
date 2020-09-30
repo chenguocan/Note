@@ -2,8 +2,8 @@
   <div class="note">
     <div class="header">
       <div class="date">
-        <span>创建时间:{{ message === '' ? '' : message.createdAt }}</span>
-        <span>更新时间:{{ message === '' ? '' : message.updatedAt }}</span>
+        <span>创建时间:{{ message === '' ? '' : message.createdAt | formateData(message.createdAt) }}</span>
+        <span>更新时间:{{ message === '' ? '' : message.updatedAt | formateData(message.updatedAt)}}</span>
         <i class="el-icon-delete-solid delete" @click="deleteNote"></i>
       </div>
     </div>
@@ -47,8 +47,8 @@ export default {
         window.alert('删除成功');
       }
       const {data: res2} = await this.$api.getNotes(this.message.notebookId);
-      this.notesList = res2;
-      this.$store.commit('getNotesList',res2);
+      this.notesList = res2.data;
+      this.$store.commit('getNotesList',res2.data);
     },
     async submitUpdate(id, messageInfo) {
       const res = await this.$api.updateNotes(id, messageInfo)

@@ -22,7 +22,7 @@ const store= new Vuex.Store({
     },
     getNotesList(state,notesList){
       state.notesList=notesList;
-    }
+    },
   },
   actions: {
   },

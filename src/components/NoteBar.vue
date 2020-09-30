@@ -8,8 +8,8 @@
           <span>标题</span>
         </div>
         <ul>
-          <li v-for="item in notesList" :key="item.id" @click="currentId(item.id)">
-            <div class="dataMessage">{{ item.updatedAt }} </div>
+          <li v-for="item in dateList" :key="item.id" @click="currentId(item.id)">
+            <div class="dataMessage">{{ item.updatedAt | formateData(item.updatedAt) }} </div>
             <div class="dataMessage">{{ item.title }}</div>
           </li>
         </ul>
@@ -20,21 +20,26 @@
 
 <script lang="js">
 import Bus from "@/event/Bus";
-import dayjs from "dayjs";
 
 export default {
   name: 'NoteBar',
   props: ['currentList'],
   data(){
     return{
-      dateList:[],
       currentNote:[],
     }
   },
   computed:{
     notesList(){
-      console.log("123123");
       return this.$store.state.notesList;
+    },
+    dateList:{
+      get() {
+        return this.notesList;
+      },
+      set(data){
+        return data;
+      }
     }
   },
   methods:{
@@ -45,16 +50,8 @@ export default {
     async getCurrentNote(id){
       const {data:res}=await this.$api.getNotes(id);
       this.$store.commit('getNotesList',res.data);
-      console.log(res.data);
-      this.dateList=res.data;
-      this.formatTime();
+      this.dateList=this.notesList;
     },
-    formatTime(){
-      for(let i=0;i<this.dateList.length;i++){
-        this.dateList[i].createdAt=dayjs(this.dateList[i].createdAt).format('YYYY-MM-DD');
-        this.dateList[i].updatedAt=dayjs(this.dateList[i].updatedAt).format('YYYY-MM-DD');
-      }
-    }
   },
   watch:{
     currentList(){
