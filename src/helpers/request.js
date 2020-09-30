@@ -36,24 +36,13 @@ instance.interceptors.response.use(
         }
     }
 );
+const errorStatus={
+    400:'信息校验失败',
+    401:'认证失败',
+    403:'token校验失败',
+    404:'请求资源不存在',
+}
 const errorHandle = (status, other) => {
-    switch (status) {
-        case 400:
-            console.log("信息校验失败");
-            break;
-        case 401:
-            console.log("认证失败");
-            break;
-        case 403:
-            console.log("token校验失败");
-            break;
-        case 404:
-            console.log("请求的资源不存在");
-            break;
-        default:
-            console.log(other);
-            break;
-
-    }
+      console.log(errorStatus[status] || other);
 }
 export default instance;

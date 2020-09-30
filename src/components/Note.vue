@@ -29,6 +29,16 @@ export default {
       },
     }
   },
+  computed: {
+    notesList: {
+      get() {
+        return this.$store.state.notesList;
+      },
+      set(data) {
+        return data;
+      }
+    }
+  },
   methods: {
     async deleteNote() {
       console.log(this.message);
@@ -36,17 +46,20 @@ export default {
       if (res.status === 200) {
         window.alert('删除成功');
       }
+      const {data: res2} = await this.$api.getNotes(this.message.notebookId);
+      this.notesList = res2;
+      this.$store.commit('getNotesList',res2);
     },
     async submitUpdate(id, messageInfo) {
-      const res = await this.$api.updateNotes( id, messageInfo)
-      if(res.status!==200){
+      const res = await this.$api.updateNotes(id, messageInfo)
+      if (res.status !== 200) {
         return window.alert('输入信息失败');
       }
     },
     changeInput() {
       this.changeMessage.title = this.message.title;
       this.changeMessage.content = this.message.content;
-      this.submitUpdate(this.message.id,this.changeMessage);
+      this.submitUpdate(this.message.id, this.changeMessage);
     }
   },
   mounted() {

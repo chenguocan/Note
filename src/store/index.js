@@ -8,6 +8,7 @@ const store= new Vuex.Store({
     isLogin:false,
     noteList:[],
     trashList:[],
+    notesList:[],
   },
   mutations: {
     changeLog(state, logState) {
@@ -18,6 +19,9 @@ const store= new Vuex.Store({
     },
     getTrashList(state,trashList){
       state.trashList=trashList;
+    },
+    getNotesList(state,notesList){
+      state.notesList=notesList;
     }
   },
   actions: {

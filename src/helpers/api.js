@@ -1,5 +1,5 @@
 import base from "./base"
-import axios from "./require"
+import axios from "./request"
 const api={
     login(params){
         return axios.post(base.login,params);
@@ -17,7 +17,7 @@ const api={
         return axios.get(base.notes+id);
     },
     deleteNotes(id){
-        return axios.delete(base.notes+id);
+        return axios.delete(base.delete+id);
     },
     updateNotes(id,params){
         return axios.patch(base.notes+id,params);

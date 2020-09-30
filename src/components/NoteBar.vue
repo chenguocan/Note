@@ -8,7 +8,7 @@
           <span>标题</span>
         </div>
         <ul>
-          <li v-for="item in dateList" :key="item.id" @click="currentId(item.id)">
+          <li v-for="item in notesList" :key="item.id" @click="currentId(item.id)">
             <div class="dataMessage">{{ item.updatedAt }} </div>
             <div class="dataMessage">{{ item.title }}</div>
           </li>
@@ -31,6 +31,12 @@ export default {
       currentNote:[],
     }
   },
+  computed:{
+    notesList(){
+      console.log("123123");
+      return this.$store.state.notesList;
+    }
+  },
   methods:{
     currentId(id){
       this.currentNote=this.dateList.filter((item)=>item.id===id);
@@ -38,6 +44,8 @@ export default {
     },
     async getCurrentNote(id){
       const {data:res}=await this.$api.getNotes(id);
+      this.$store.commit('getNotesList',res.data);
+      console.log(res.data);
       this.dateList=res.data;
       this.formatTime();
     },

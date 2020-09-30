@@ -38,10 +38,8 @@ export default {
     async getTrashList() {
       if (this.isLogin === true) {
         const {data: res} = await this.$api.getTrash();
-        console.log(res);
         this.trashList = res.data;
         this.$store.commit('getTrashList', this.trashList);
-
       }
     },
     intoNote(id){
