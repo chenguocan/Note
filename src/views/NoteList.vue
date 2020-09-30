@@ -6,14 +6,22 @@
     <div class="booksBox">
       <div class="noteBooksList">
         <ul>
-          <li v-for="item in noteList" :key="item.id" @click="intoNote(item.id)"><i class="el-icon-notebook-1"></i>{{ item.title }}<span>({{item.noteCounts}})</span></li>
+          <li v-for="item in noteList" :key="item.id">
+            <i @click="intoNote(item.id)" class="el-icon-notebook-1">{{
+                item.title
+              }}<span>({{ item.noteCounts }})</span></i>
+            <div class="btn">
+              <el-button type="text delete" @click="deleteNote(item.id)">删除</el-button>
+              <el-button type="text">编辑</el-button>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 export default {
   name: 'NoteList',
   data() {
@@ -30,7 +38,7 @@ export default {
   methods: {
     async getNoteList() {
       if (this.isLogin === true) {
-        const {data: res} =await this.$api.getNote();
+        const {data: res} = await this.$api.getNote();
         this.noteList = res.data;
         this.$store.commit('getNoteList', this.noteList);
       }
@@ -42,13 +50,11 @@ export default {
         this.$store.commit('getTrashList', this.trashList);
       }
     },
-    intoNote(id){
-      this.$router.push({
-        path:'/home/notesDetail',
-        query:{
-          id:id
-        }
-      });
+    intoNote(id) {
+      this.$router.push({path: '/home/notesDetail', query: {id: id}});
+    },
+    deleteNote(id){
+      console.log(id);
     }
   },
   created() {
@@ -63,7 +69,7 @@ export default {
   width: 100%;
   height: inherit;
   background: rgb(238, 238, 238);
-  .title{
+  .title {
     padding-bottom: 30px;
   }
   .addNewNote {
@@ -73,7 +79,6 @@ export default {
     background: white;
     border: 1px solid rgb(132, 134, 132);
   }
-
   .booksBox {
     width: 680px;
     height: 78%;
@@ -89,11 +94,24 @@ export default {
       ul {
         li {
           text-align: left;
-          padding:10px;
-          cursor: pointer;
+          padding: 10px;
+          display: flex;
+          align-items: center;
           border-bottom: 1px solid rgb(179, 192, 200);
-          span{
-            color:gray;
+          justify-content: space-between;
+          i {
+            cursor: pointer;
+          }
+          span {
+            color: gray;
+          }
+          .btn {
+            .el-button {
+              color: rgb(179, 192, 200);
+              &.delete {
+                right: 0;
+              }
+            }
           }
         }
       }

@@ -1,0 +1,25 @@
+.main {
+  padding: 30px 20px;
+  font-size: 20px;
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  .content {
+    overflow: hidden;
+    border: none;
+    outline: none;
+    margin: 30px;
+    height: 500px;
+    resize: none;
+  }
+}
+.title, span {
+  padding: 0 20px 0 20px;
+}
+
+.title {
+  font-size: 16px;
+  color: #36292f;
+}

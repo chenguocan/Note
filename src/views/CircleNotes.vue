@@ -1,21 +1,21 @@
 <template>
   <div class="trashNote">
-    <NoteBar :currentList="trashList">
+    <TrashBar :currentList="trashList">
       <div class="tag">
         <p>回收站</p>
       </div>
-    </NoteBar>
+    </TrashBar>
     <Trash></Trash>
   </div>
 </template>
 
 <script lang="ts">
-import NoteBar from '../components/NoteBar.vue';
+import TrashBar from '../components/TrashBar.vue';
 import Trash from '../components/Trash.vue';
 
 export default {
   name: 'CircleNotes',
-  components: {Trash, NoteBar},
+  components: {Trash, TrashBar},
   computed:{
     trashList(){
       return this.$store.state.trashList;

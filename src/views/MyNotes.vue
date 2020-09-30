@@ -81,8 +81,10 @@ export default {
       if(res.status!==200){
         return window.alert("添加笔记失败");
       }
-      const res2 = await this.$api.getNote();
+      console.log(this.current);
+      const {data:res2} = await this.$api.getNotes(this.current.id);
       console.log(res2);
+      this.$store.commit('getNotesList',res2.data);
     },
   },
   mounted() {

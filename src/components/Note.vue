@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     async deleteNote() {
-      console.log(this.message);
       const res = await this.$api.deleteNotes(this.message.id);
       if (res.status === 200) {
         window.alert('删除成功');
@@ -51,7 +50,7 @@ export default {
       this.$store.commit('getNotesList',res2.data);
     },
     async submitUpdate(id, messageInfo) {
-      const res = await this.$api.updateNotes(id, messageInfo)
+      const res = await this.$api.updateNotes(id, messageInfo);
       if (res.status !== 200) {
         return window.alert('输入信息失败');
       }
@@ -76,18 +75,9 @@ export default {
 
 <style lang="scss" scoped>
 .note {
+  @import '~@/assets/styles/mainStyle.scss';
   height: 100%;
   width: 100%;
-
-  .title, span {
-    padding: 0 20px 0 20px;
-  }
-
-  .title {
-    font-size: 16px;
-    color: #36292f;
-  }
-
   .header {
     min-height: 30px;
     border-bottom: 1px solid gray;
@@ -109,24 +99,6 @@ export default {
         cursor: pointer;
       }
 
-    }
-  }
-
-  .main {
-    padding: 30px 20px;
-    font-size: 20px;
-    text-align: left;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-
-    .content {
-      overflow: hidden;
-      border: none;
-      outline: none;
-      margin: 30px;
-      height: 500px;
-      resize: none;
     }
   }
 }

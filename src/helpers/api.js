@@ -17,10 +17,10 @@ const api={
         return axios.get(base.notes+id);
     },
     deleteNotes(id){
-        return axios.delete(base.delete+id);
+        return axios.delete(base.notesList+id);
     },
     updateNotes(id,params){
-        return axios.patch(base.notes+id,params);
+        return axios.patch(base.notesList+id,params);
     }
 }
 export default api;
