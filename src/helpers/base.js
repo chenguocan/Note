@@ -4,6 +4,6 @@ const base={
     trash:'/notes/trash',
     add:'/notes/to/',
     notes:'/notes/from/',
-    notesList:'/notes/'
+    notesList:'/notes/',
 }
 export default base;

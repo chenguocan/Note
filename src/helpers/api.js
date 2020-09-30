@@ -21,6 +21,12 @@ const api={
     },
     updateNotes(id,params){
         return axios.patch(base.notesList+id,params);
+    },
+    deleteTrash(id){
+        return axios.delete(base.notesList+id+'/confirm');
+    },
+    revertNote(id){
+        return axios.patch(base.notesList+id+'/revert');
     }
 }
 export default api;

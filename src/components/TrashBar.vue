@@ -8,7 +8,7 @@
           <span>标题</span>
         </div>
         <ul>
-          <li v-for="item in currentList" :key="item.id" @click="currentId(item.id)">
+          <li v-for="item in trashList" :key="item.id" @click="currentId(item.id)">
             <div class="dataMessage">{{ item.updatedAt | formateData(item.updatedAt) }} </div>
             <div class="dataMessage">{{ item.title }}</div>
           </li>
@@ -24,10 +24,14 @@ import Bus from "@/event/Bus";
 
 export default {
   name: 'TrashBar',
-  props: ['currentList'],
   data(){
     return{
       current:'',
+    }
+  },
+  computed:{
+    trashList(){
+      return this.$store.state.trashList
     }
   },
   created(){
@@ -35,7 +39,7 @@ export default {
   },
   methods:{
     currentId(id){
-      this.current=this.currentList.filter(item=>item.id===id);
+      this.current=this.trashList.filter(item=>item.id===id);
       Bus.$emit('xxx',this.current);
     }
   }
@@ -50,7 +54,7 @@ export default {
   width: 400px;
   border: 1px solid $line-color;
   background: rgb(238, 238, 238);
-
+  overflow: auto;
   .titleBar {
     display: flex;
     justify-content: flex-start;
