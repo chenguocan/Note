@@ -1,6 +1,23 @@
 <template>
   <div class="noteBooks">
-    <button class="addNewNote">+新建笔记本</button>
+    <el-button class="addNewNote" type="text" @click="changeVisible(true)">+新建笔记本</el-button>
+    <el-dialog
+        title="新建笔记本"
+        :visible.sync="noteDialogVisible"
+        width="50%"
+        center>
+      <el-form :model="addNote" label-width="100px">
+        <el-form-item label="笔记本名称">
+          <el-input v-model="addNote.title"></el-input>
+        </el-form-item>
+      </el-form>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="changeVisible(false)">取 消</el-button>
+        <el-button type="primary" @click="submitNote">确 定</el-button>
+      </span>
+    </el-dialog>
+
     <hr/>
     <h5 class="title">笔记本列表({{ noteList.length }})</h5>
     <div class="booksBox">
@@ -28,6 +45,10 @@ export default {
     return {
       noteList: [],
       trashList: [],
+      noteDialogVisible: false,
+      addNote: {
+        title: '',
+      },
     };
   },
   computed: {
@@ -36,6 +57,18 @@ export default {
     }
   },
   methods: {
+    changeVisible(xxx) {
+      this.noteDialogVisible = xxx;
+    },
+    async submitNote() {
+      console.log(this.addNote);
+      const res = await this.$api.createNote({title: this.addNote.title});
+      this.changeVisible(false);
+      if (res.status !== 200) {
+        return window.alert("添加失败");
+      }
+      await this.getNoteList();
+    },
     async getNoteList() {
       if (this.isLogin === true) {
         const {data: res} = await this.$api.getNote();
@@ -53,8 +86,17 @@ export default {
     intoNote(id) {
       this.$router.push({path: '/home/notesDetail', query: {id: id}});
     },
-    deleteNote(id){
-      console.log(id);
+    async deleteNote(id) {
+      const res = await this.$api.deleteNote(id).catch(() => {
+        return window.alert('笔记本不为空或者回收站中还有属于当前笔记本的笔记');
+          }
+      );
+      if (res) {
+        if (res.status !== 200) {
+          window.alert('笔记本不为空或者回收站中还有属于当前笔记本的笔记');
+        }
+        await this.getNoteList();
+      }
     }
   },
   created() {
@@ -69,28 +111,34 @@ export default {
   width: 100%;
   height: inherit;
   background: rgb(238, 238, 238);
+
   .title {
     padding-bottom: 30px;
   }
+
   .addNewNote {
-    padding: 3px 0;
+    padding: 4px 5px;
     margin: 5px 0;
     color: rgb(132, 134, 132);
     background: white;
     border: 1px solid rgb(132, 134, 132);
+    border-radius: 0;
   }
+
   .booksBox {
     width: 680px;
     height: 78%;
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
+
     .noteBooksList {
       width: 700px;
       height: 100%;
       background: white;
       border-radius: 5px;
       overflow: auto;
+
       ul {
         li {
           text-align: left;
@@ -99,15 +147,19 @@ export default {
           align-items: center;
           border-bottom: 1px solid rgb(179, 192, 200);
           justify-content: space-between;
+
           i {
             cursor: pointer;
           }
+
           span {
             color: gray;
           }
+
           .btn {
             .el-button {
               color: rgb(179, 192, 200);
+
               &.delete {
                 right: 0;
               }

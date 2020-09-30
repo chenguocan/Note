@@ -27,6 +27,12 @@ const api={
     },
     revertNote(id){
         return axios.patch(base.notesList+id+'/revert');
+    },
+    createNote(params){
+        return axios.post(base.note,params);
+    },
+    deleteNote(id){
+        return axios.delete(base.note+id);
     }
 }
 export default api;
