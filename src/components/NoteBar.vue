@@ -8,7 +8,7 @@
           <span>标题</span>
         </div>
         <ul>
-          <li v-for="item in dateList" class="dataMessage" :key="item.id" @click="currentId(item.id)">
+          <li v-for="(item,index) in dateList" class="dataMessage" :class="{active:index===current}" :key="item.id" @click="currentId(item.id,index)">
            <span class="title"> {{ item.updatedAt | formateData(item.updatedAt) }} </span> <span class="title">{{item.title}}</span>
           </li>
         </ul>
@@ -26,6 +26,7 @@ export default {
   data(){
     return{
       currentNote:[],
+      current:false,
     }
   },
   computed:{
@@ -42,7 +43,8 @@ export default {
     }
   },
   methods:{
-    currentId(id){
+    currentId(id,index){
+      this.current=index;
       this.currentNote=this.dateList.filter((item)=>item.id===id);
       Bus.$emit('currentNote',this.currentNote);
     },
@@ -54,7 +56,6 @@ export default {
   },
   watch:{
     currentList(){
-
       this.getCurrentNote(this.currentList.id);
     },
   },
@@ -68,7 +69,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "~@/assets/styles/valiable.scss";
-
+span {
+  display: inline-block;
+  width: 50%;
+}
 .myNotes {
   height: 100%;
   width: 400px;
@@ -84,15 +88,8 @@ export default {
       flex-direction: column;
       text-align: left;
       width: 100%;
-
-      span {
-        display: inline-block;
-        width: 50%;
-      }
-
       ul {
         .dataMessage{
-
           display: flex;
           white-space: nowrap;
           justify-content: space-between;
@@ -100,6 +97,9 @@ export default {
             background: inherit;
             text-overflow: ellipsis;
             overflow: hidden;
+          }
+          &.active{
+            background: red;
           }
         }
         :nth-child(odd) {
