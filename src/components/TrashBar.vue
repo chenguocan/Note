@@ -9,8 +9,7 @@
         </div>
         <ul>
           <li v-for="item in trashList" :key="item.id" @click="currentId(item.id)">
-            <div class="dataMessage">{{ item.updatedAt | formateData(item.updatedAt) }} </div>
-            <div class="dataMessage">{{ item.title }}</div>
+            {{ item.updatedAt | formateData(item.updatedAt) }} {{ item.title }}
           </li>
         </ul>
       </div>
@@ -58,7 +57,6 @@ export default {
   .titleBar {
     display: flex;
     justify-content: flex-start;
-
     .updateDate {
       display: flex;
       flex-direction: column;
@@ -71,13 +69,9 @@ export default {
       }
       ul {
         li {
-          .dataMessage {
-            display: inline-block;
-            width: 50%;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-          }
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
         }
       }
     }

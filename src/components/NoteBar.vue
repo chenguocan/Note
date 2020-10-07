@@ -8,9 +8,8 @@
           <span>标题</span>
         </div>
         <ul>
-          <li v-for="item in dateList" :key="item.id" @click="currentId(item.id)">
-            <div class="dataMessage">{{ item.updatedAt | formateData(item.updatedAt) }} </div>
-            <div class="dataMessage">{{ item.title }}</div>
+          <li v-for="item in dateList" class="dataMessage" :key="item.id" @click="currentId(item.id)">
+           <span class="title"> {{ item.updatedAt | formateData(item.updatedAt) }} </span> <span class="title">{{item.title}}</span>
           </li>
         </ul>
       </div>
@@ -55,6 +54,7 @@ export default {
   },
   watch:{
     currentList(){
+
       this.getCurrentNote(this.currentList.id);
     },
   },
@@ -84,20 +84,26 @@ export default {
       flex-direction: column;
       text-align: left;
       width: 100%;
+
       span {
         display: inline-block;
         width: 50%;
-        margin-bottom: 10px;
       }
+
       ul {
-        li {
-          .dataMessage {
-            display: inline-block;
-            width: 50%;
+        .dataMessage{
+
+          display: flex;
+          white-space: nowrap;
+          justify-content: space-between;
+          .title{
+            background: inherit;
             text-overflow: ellipsis;
             overflow: hidden;
-            white-space: nowrap;
           }
+        }
+        :nth-child(odd) {
+          background: $line-color;
         }
       }
     }

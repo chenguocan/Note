@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import MyNotes from "@/views/MyNotes";
-import CircleNotes from "@/views/CircleNotes";
-import NoteList from "@/views/NoteList";
-import Login from "@/views/Login";
+
+const Home =()=>import ('@/views/Home.vue');
+const MyNotes=()=>import('@/views/MyNotes');
+const CircleNotes=()=>import('@/views/CircleNotes');
+const NoteList=()=>import('@/views/NoteList');
+const Login=()=>import ('@/views/Login');
 
 Vue.use(VueRouter)
 

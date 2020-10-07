@@ -1,6 +1,7 @@
 import axios from 'axios';
 import qs from 'querystring';
-
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 // 创建axios实例
 // 创建请求时可以用的配置选项
 let  instance = axios.create({ timeout: 1000 });
@@ -15,6 +16,7 @@ instance.interceptors.request.use(function (config) {
     if (config.method === 'post') {
         config.data = qs.stringify(config.data)
     }
+    NProgress.start();
     return config;
 }, function (error) {
     return Promise.reject(error);
@@ -23,7 +25,10 @@ instance.interceptors.request.use(function (config) {
 // 添加响应拦截器
 instance.interceptors.response.use(
     // 响应包含以下信息data,status,statusText,headers,config
-    (res) => res.status === 200 ? Promise.resolve(res) : Promise.reject(res),
+    (res) =>{
+        NProgress.done();
+        return res.status === 200 ? Promise.resolve(res) : Promise.reject(res)
+    },
     (err) => {
         console.log(err)
         const { response } = err;

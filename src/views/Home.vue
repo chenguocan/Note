@@ -33,7 +33,7 @@ export default {
 @import "~@/assets/iconfont.css";
 
 .home {
-  height: 700px;
+  height: 100vh;
   width: 100%;
   display: flex;
   overflow: hidden;
