@@ -61,7 +61,6 @@ export default {
       this.noteDialogVisible = xxx;
     },
     async submitNote() {
-      console.log(this.addNote);
       const res = await this.$api.createNote({title: this.addNote.title});
       this.changeVisible(false);
       if (res.status !== 200) {
@@ -122,7 +121,6 @@ export default {
     color: rgb(132, 134, 132);
     background: white;
     border: 1px solid rgb(132, 134, 132);
-    border-radius: 0;
   }
 
   .booksBox {
@@ -131,9 +129,8 @@ export default {
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
-
     .noteBooksList {
-      width: 700px;
+      min-width: 700px;
       height: 100%;
       background: white;
       border-radius: 5px;
@@ -141,13 +138,13 @@ export default {
 
       ul {
         li {
+          width: 100%;
           text-align: left;
           padding: 10px;
           display: flex;
           align-items: center;
           border-bottom: 1px solid rgb(179, 192, 200);
           justify-content: space-between;
-
           i {
             cursor: pointer;
           }

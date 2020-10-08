@@ -70,6 +70,7 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/styles/valiable.scss";
 span {
+  padding:3px 0;
   display: inline-block;
   width: 50%;
 }
@@ -99,7 +100,7 @@ span {
             overflow: hidden;
           }
           &.active{
-            background: red;
+            color:gray;
           }
         }
         :nth-child(odd) {
