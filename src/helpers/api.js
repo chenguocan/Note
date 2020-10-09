@@ -33,6 +33,9 @@ const api={
     },
     deleteNote(id){
         return axios.delete(base.note+id);
+    },
+    editNote(id,params){
+        return axios.patch(base.note+id,params);
     }
 }
 export default api;

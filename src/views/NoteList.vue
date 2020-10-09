@@ -12,7 +12,7 @@
               }}<span>({{ item.noteCounts }})</span></i>
             <div class="btn">
               <el-button type="text delete" @click="deleteNote(item.id)">删除</el-button>
-              <el-button type="text" @click="changeEditVisible(true)">编辑</el-button>
+              <el-button type="text" @click="edit(item)">编辑</el-button>
             </div>
           </li>
         </ul>
@@ -40,14 +40,14 @@
             :visible.sync="editDialogVisible"
             width="50%"
             center>
-          <el-form :model="addNote" label-width="100px">
+          <el-form :model="editNote" label-width="100px">
             <el-form-item label="笔记本名称">
-              <el-input v-model="addNote.title"></el-input>
+              <el-input v-model="editNote.title"></el-input>
             </el-form-item>
           </el-form>
           <span slot="footer" class="dialog-footer">
                    <el-button @click="changeEditVisible(false)">取 消</el-button>
-                   <el-button type="primary"  @click="edit">确 定</el-button>
+                   <el-button type="primary"  @click="submitEdit">确 定</el-button>
                 </span>
         </el-dialog>
       </div>
@@ -67,6 +67,10 @@ export default {
       addNote: {
         title: '',
       },
+      editNote:{
+        id:'',
+        title:'',
+      }
     };
   },
   computed: {
@@ -118,8 +122,20 @@ export default {
     changeEditVisible(visible) {
       this.editDialogVisible = visible;
     },
-    edit(){
-
+    edit(item){
+      this.editNote.id=item.id;
+      this.editNote.title=item.title;
+      this.changeEditVisible(true);
+    },
+    async submitEdit(){
+      const res=await this.$api.editNote(this.editNote.id,{title:this.editNote.title});
+      if (res) {
+        if (res.status !== 200) {
+          window.alert('编辑失败');
+        }
+        await this.getNoteList();
+      }
+      this.changeEditVisible(false);
     }
   },
   created() {
