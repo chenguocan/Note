@@ -58,6 +58,11 @@ export default {
       set(data){
         this.$store.commit('getNoteList', data);
       }
+    },
+  },
+  watch:{
+    current(){
+      return this.current;
     }
   },
   created(){
@@ -91,6 +96,7 @@ export default {
     if(this.$route.query.id) {
       const id=parseInt(this.$route.query.id);
       this.current=this.noteList.filter(item => item.id ===id )[0];
+      console.log(this.current);
     }
   }
 };

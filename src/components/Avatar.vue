@@ -35,5 +35,9 @@ export default {
   width: 30px;
   background: rgb(241, 183, 52);
   border-radius: 50%;
+  @media (max-width: 500px){
+    margin-top: 0;
+    margin-left: 10px;
+  }
 }
 </style>

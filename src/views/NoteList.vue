@@ -143,7 +143,7 @@ export default {
 
 <style lang="scss" scoped>
 .noteBooks {
-  width: 100%;
+  width: 100vw;
   height: inherit;
   background: rgb(238, 238, 238);
 
@@ -174,7 +174,7 @@ export default {
 
       ul {
         li {
-          width: 100%;
+          width: 100vw;
           text-align: left;
           padding: 10px;
           display: flex;

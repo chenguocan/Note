@@ -17,6 +17,10 @@ export default {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
+  @media (max-width:500px) {
+    flex-direction: row;
+    margin-top: 0;
+  }
     .icons {
       width: 100%;
       padding: 10px 15px 10px 15px;

@@ -9,7 +9,7 @@
     </div>
     <div class="main">
       <label><input type="text" class="title" v-model="message.title" @input="changeInput" placeholder="选择标题"/></label>
-      <textarea class="content" v-model="message.content" @input="changeInput" maxlength="8000"></textarea>
+      <textarea class="content" v-model="message.content" @input="changeInput" maxlength="8000" placeholder="输入内容"></textarea>
     </div>
   </div>
 </template>
@@ -70,6 +70,11 @@ export default {
   beforeDestroy() {
     Bus.$off('currentNote');
   },
+  created() {
+    if (this.notesList.length !== 0) {
+      this.message = this.notesList[0];
+    }
+  }
 }
 </script>
 

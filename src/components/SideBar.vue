@@ -25,12 +25,21 @@ export default {
 
 <style lang="scss" scoped>
 .sideBar {
-  min-width: 45px;
+  width: 45px;
   background: rgb(45, 51, 60);
   position: relative;
+  @media (max-width: 500px){
+    width: 100vw;
+    display: flex;
+    align-items: center;
+  }
   .exit{
     bottom:20px;
     position: absolute;
+    @media (max-width: 500px) {
+      right:20px;
+      bottom:10px;
+    }
   }
 }
 </style>

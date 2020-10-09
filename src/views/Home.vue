@@ -37,11 +37,22 @@ export default {
   width: 100%;
   display: flex;
   overflow: hidden;
+  @media (max-width: 500px) {
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+
+  }
 }
 
 .sideBar {
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width: 500px){
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items:flex-start;
+  }
 }
 </style>
