@@ -1,12 +1,27 @@
 <template>
   <div class="avatar">
-    <p class="name">H</p>
+    <p class="name">{{username}}</p>
   </div>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'Avatar'
+  name: 'Avatar',
+  data(){
+    return{
+      username:'',
+    }
+  },
+  computed:{
+    isLogin(){
+      return this.$store.state.isLogin;
+    }
+  },
+  created() {
+    if(this.isLogin) {
+      this.username=sessionStorage.getItem('username')[0].toUpperCase();
+    }
+  }
 };
 </script>
 

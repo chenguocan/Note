@@ -31,6 +31,7 @@ export default {
       const res = await this.$api.login({username: this.username, password: this.password});
       if (res.status === 200) {
         this.$store.commit("changeLog", true);
+        sessionStorage.setItem('username',this.username);
         await this.$router.push("/home/noteList");
       }
     }

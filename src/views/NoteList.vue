@@ -79,8 +79,8 @@ export default {
     }
   },
   methods: {
-    changeVisible(xxx) {
-      this.noteDialogVisible = xxx;
+    changeVisible(visible) {
+      this.noteDialogVisible = visible;
     },
     async submitNote() {
       const res = await this.$api.createNote({title: this.addNote.title});
