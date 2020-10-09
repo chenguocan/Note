@@ -6,6 +6,7 @@
         <label class="mark"><i class="el-icon-s-custom"></i><input class="username" type="text" v-model="username"/></label>
         <label class="mark"><i class="el-icon-lock"></i><input type="password" class="password" v-model="password"/></label>
         <button class="buttons login" @click="login($event)">登录</button>
+        <h1>123132</h1>
       </form>
     </div>
   </div>
