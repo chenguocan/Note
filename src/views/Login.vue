@@ -3,14 +3,13 @@
     <h2>登录界面</h2>
     <div class="loginBox">
       <form method="post" class="formBox">
-        <label class="mark">用户名:</label><input class="username" type="text" v-model="username"/>
-        <label class="mark">密码:</label><input type="text" class="password" v-model="password"/>
+        <label class="mark"><i class="el-icon-s-custom"></i><input class="username" type="text" v-model="username"/></label>
+        <label class="mark"><i class="el-icon-lock"></i><input type="password" class="password" v-model="password"/></label>
         <button class="buttons login" @click="login($event)">登录</button>
       </form>
     </div>
   </div>
 </template>
-
 <script>
 
 export default {
@@ -22,16 +21,16 @@ export default {
     }
   },
   computed: {
-    isLogin(){
+    isLogin() {
       return this.$store.state.isLogin;
     }
   },
   methods: {
     async login(e) {
       e.preventDefault();
-      const res=await this.$api.login({username: this.username, password: this.password});
-      if(res.status===200){
-        this.$store.commit("changeLog",true);
+      const res = await this.$api.login({username: this.username, password: this.password});
+      if (res.status === 200) {
+        this.$store.commit("changeLog", true);
         await this.$router.push("/home/noteList");
       }
     }
@@ -43,13 +42,15 @@ export default {
 @import "~@/assets/styles/valiable.scss";
 
 .loginInterface {
-  background: $line-color;
-  min-height: 750px;
+  background:no-repeat url("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=660373771,3596958404&fm=26&gp=0.jpg");
+  background-size: cover;
+  height: 100vh;
+
   h2 {
     transform: translateY(100px);
   }
+
   .loginBox {
-    background: white;
     min-height: 400px;
     max-width: 350px;
     margin-right: auto;
@@ -57,39 +58,41 @@ export default {
     transform: translateY(30%);
     display: flex;
     flex-direction: column;
+    opacity: 100%;
     .formBox {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 50px;
-      .mark{
-        color:gray;
-        width: 40px;
-        transform: translateX(-80px);
-        margin-top:10px;
-        font-size: 10px;
-        text-align: left;
-        text-align-last: justify;
-      }
-      .username, .password {
-        border:1px solid gray;
+      .mark {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        border: 1px solid gray;
         border-radius: 3px;
-        width: 200px;
         height: 30px;
         background: white;
+        width: 250px;
+        color: gray;
+        i{
+          padding:0 0.5em;
+        }
       }
-        .buttons {
-          margin-top: 10px;
-          width: 200px;
-          height: 30px;
-          border-radius: 3px;
-          &.login {
-            background: rgb(133, 206, 97);
-          }
+      .buttons {
+        margin-top: 10px;
+        width: 250px;
+        height: 30px;
+        border-radius: 3px;
 
-          &.signup {
-            background: red;
-          }
+        &.login {
+
+          color:white;
+          background: rgb(133, 206, 97);
+        }
+
+        &.signup {
+          background: red;
+        }
       }
     }
   }
