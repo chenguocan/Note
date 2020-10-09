@@ -30,6 +30,7 @@ instance.interceptors.response.use(
         return res.status === 200 ? Promise.resolve(res) : Promise.reject(res)
     },
     (err) => {
+        NProgress.done();
         console.log(err)
         const { response } = err;
         // console.log(response)

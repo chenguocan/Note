@@ -16,7 +16,6 @@
             </div>
           </li>
         </ul>
-
         <!--对话框-->
         <el-dialog
             title="新建笔记本"
@@ -109,13 +108,10 @@ export default {
     },
     async deleteNote(id) {
       const res = await this.$api.deleteNote(id).catch(() => {
-            return window.alert('笔记本不为空或者回收站中还有属于当前笔记本的笔记');
+            return this.$message({message:'笔记本不为空或者回收站中还有属于当前笔记本的笔记',type:'error'});
           }
       );
       if (res) {
-        if (res.status !== 200) {
-          window.alert('笔记本不为空或者回收站中还有属于当前笔记本的笔记');
-        }
         await this.getNoteList();
       }
     },
