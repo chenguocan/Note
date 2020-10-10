@@ -174,14 +174,16 @@ export default {
 
       ul {
         li {
-          width: 100vw;
+          width: 100%;
           text-align: left;
           padding: 10px;
           display: flex;
           align-items: center;
           border-bottom: 1px solid rgb(179, 192, 200);
           justify-content: space-between;
-
+          @media (max-width: 500px){
+            width: 100vw;
+          }
           i {
             cursor: pointer;
           }

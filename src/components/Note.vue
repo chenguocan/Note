@@ -66,8 +66,18 @@ export default {
       this.message = val[0];
       Bus.$forceUpdate();
     }.bind(this));
+
+    Bus.$on('update', function (val) {
+      if(val==='update') {
+        if (this.notesList.length !== 0) {
+          this.message = this.notesList[0];
+        }
+      }
+      Bus.$forceUpdate();
+    }.bind(this));
   },
   beforeDestroy() {
+    Bus.$off('update');
     Bus.$off('currentNote');
   },
   created() {

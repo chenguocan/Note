@@ -36,6 +36,7 @@
 <script lang="js">
 import NoteBar from '../components/NoteBar.vue';
 import Note from '../components/Note.vue';
+import Bus from "@/event/Bus";
 
 export default {
   name: 'MyNotes',
@@ -72,6 +73,7 @@ export default {
   },
   methods: {
     currentTitle(id) {
+      Bus.$emit('update','update');
       this.current = this.noteList.filter(item=>item.id===id)[0];
     },
     changeDialogVisible(visible){
@@ -86,9 +88,7 @@ export default {
       if(res.status!==200){
         return window.alert("添加笔记失败");
       }
-      console.log(this.current);
       const {data:res2} = await this.$api.getNotes(this.current.id);
-      console.log(res2);
       this.$store.commit('getNotesList',res2.data);
     },
   },
@@ -96,7 +96,6 @@ export default {
     if(this.$route.query.id) {
       const id=parseInt(this.$route.query.id);
       this.current=this.noteList.filter(item => item.id ===id )[0];
-      console.log(this.current);
     }
   }
 };

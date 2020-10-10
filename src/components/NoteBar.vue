@@ -26,7 +26,7 @@ export default {
   data(){
     return{
       currentNote:[],
-      current:false,
+      current:0,
     }
   },
   computed:{
@@ -40,7 +40,8 @@ export default {
       set(data){
         return data;
       }
-    }
+    },
+
   },
   methods:{
     currentId(id,index){
@@ -54,16 +55,30 @@ export default {
       this.dateList=this.notesList;
     },
   },
+  mounted() {
+    Bus.$on('update', function (val) {
+      if(val==='update') {
+        this.current = 0;
+      }
+      Bus.$forceUpdate();
+    }.bind(this));
+  },
+  beforeDestroy() {
+    Bus.$off('update');
+  },
   watch:{
     currentList(){
       this.getCurrentNote(this.currentList.id);
     },
+    current(){
+      console.log(this.current);
+    }
   },
   created(){
     if(this.currentList.id) {
       this.getCurrentNote(this.currentList.id);
     }
-  }
+  },
 };
 </script>
 
