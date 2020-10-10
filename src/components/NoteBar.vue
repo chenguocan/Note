@@ -70,9 +70,6 @@ export default {
     currentList(){
       this.getCurrentNote(this.currentList.id);
     },
-    current(){
-      console.log(this.current);
-    }
   },
   created(){
     if(this.currentList.id) {
