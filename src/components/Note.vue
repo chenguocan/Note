@@ -8,8 +8,8 @@
       </div>
     </div>
     <div class="main">
-      <label><input type="text" class="title" v-model="message.title" @input="changeInput" placeholder="选择标题"/></label>
-      <textarea class="content" v-model="message.content" @input="changeInput" maxlength="8000"
+      <label><input type="text" class="title" v-model="message.title" @input="submitInput" placeholder="选择标题"/></label>
+      <textarea class="content" v-model="message.content" @input="submitInput" maxlength="8000"
                 placeholder="输入内容"></textarea>
     </div>
   </div>
@@ -17,7 +17,7 @@
 
 <script>
 import Bus from "@/event/Bus";
-
+import debounce  from "@/lib/public";
 export default {
   name: "Note",
   props: ['current'],
@@ -49,6 +49,7 @@ export default {
       const {data: res2} = await this.$api.getNotes(this.message.notebookId);
       this.notesList = res2.data;
       this.$store.commit('getNotesList', res2.data);
+      this.message=this.notesList[0];
     },
     async submitUpdate(id, messageInfo) {
       const res = await this.$api.updateNotes(id, messageInfo);
@@ -59,8 +60,9 @@ export default {
     changeInput() {
       this.changeMessage.title = this.message.title;
       this.changeMessage.content = this.message.content;
-      this.submitUpdate(this.message.id, this.changeMessage);
+      this.submitUpdate(this.message.id, this.changeMessage,1000);
     },
+    submitInput:debounce('changeInput',2000),
     async getCurrentNote(id) {
       const {data: res} = await this.$api.getNotes(id);
       if (res.data.length !== 0) {
@@ -82,8 +84,11 @@ export default {
   watch: {
     current() {
       this.getCurrentNote(this.current.id);
+    },
+    notesList(){
+      this.message=this.notesList[0];
     }
-  }
+  },
 }
 </script>
 
