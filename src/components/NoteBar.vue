@@ -91,11 +91,15 @@ span {
 }
 
 .myNotes {
-  height: 100%;
+  height: 100vw;
   width: 400px;
   border: 1px solid $line-color;
   background: rgb(238, 238, 238);
-
+  @media (max-width: 500px) {
+    width: 100vw;
+    height: 20vh;
+    overflow: auto;
+  }
   .titleBar {
     display: flex;
     justify-content: flex-start;
