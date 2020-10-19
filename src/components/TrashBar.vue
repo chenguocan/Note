@@ -8,8 +8,9 @@
           <span>标题</span>
         </div>
         <ul>
-          <li v-for="item in trashList" :key="item.id" @click="currentId(item.id)">
-            {{ item.updatedAt | formateData(item.updatedAt) }} {{ item.title }}
+          <li v-for="item in trashList" class="dataMessage" :key="item.id" @click="currentId(item.id)">
+            <span class="title"> {{ item.updatedAt | formateData(item.updatedAt) }} </span>
+            <span class="title"> {{ item.title }}</span>
           </li>
         </ul>
       </div>
@@ -47,34 +48,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "~@/assets/styles/valiable.scss";
+@import "~@/assets/styles/noteBar.scss";
 
-.myNotes {
-  height: 100%;
-  width: 400px;
-  border: 1px solid $line-color;
-  background: rgb(238, 238, 238);
-  overflow: auto;
-  .titleBar {
-    display: flex;
-    justify-content: flex-start;
-    .updateDate {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-      width: 100%;
-      span {
-        display: inline-block;
-        width: 50%;
-        margin-bottom: 10px;
-      }
-      ul {
-        li {
-          text-overflow: ellipsis;
-          overflow: hidden;
-          white-space: nowrap;
-        }
-      }
-    }
-  }
-}
 </style>

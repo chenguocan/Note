@@ -83,56 +83,5 @@ export default {
 
 <style lang="scss" scoped>
 @import "~@/assets/styles/valiable.scss";
-
-span {
-  padding: 3px 0;
-  display: inline-block;
-  width: 50%;
-}
-
-.myNotes {
-  height: 100vw;
-  width: 400px;
-  border: 1px solid $line-color;
-  background: rgb(238, 238, 238);
-  @media (max-width: 500px) {
-    width: 100vw;
-    height: 20vh;
-    overflow: auto;
-  }
-  .titleBar {
-    display: flex;
-    justify-content: flex-start;
-
-    .updateDate {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-      width: 100%;
-
-      ul {
-        .dataMessage {
-          min-width: 0;
-          display: flex;
-          justify-content: space-between;
-          .title {
-            width: 150px;
-            background: inherit;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-
-          &.active {
-            color: gray;
-          }
-        }
-
-        :nth-child(odd) {
-          background: $line-color;
-        }
-      }
-    }
-  }
-}
+@import "~@/assets/styles/noteBar.scss";
 </style>
