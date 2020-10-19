@@ -10,8 +10,8 @@
         <ul>
           <li v-for="(item,index) in dateList" class="dataMessage" :class="{active:index===current}" :key="item.id"
               @click="currentId(item.id,index)">
-            <span class="title"> {{ item.updatedAt | formateData(item.updatedAt) }} </span>
-            <span class="title"> {{ item.title }}</span>
+            <span class="title"> {{ item.updatedAt === undefined ?'' : item.updatedAt | formateData(item.updatedAt)  }} </span>
+            <span class="title"> {{ item.title === undefined ? '' : item.title }}</span>
           </li>
         </ul>
       </div>

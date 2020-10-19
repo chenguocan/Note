@@ -8,7 +8,7 @@
           <span>标题</span>
         </div>
         <ul>
-          <li v-for="item in trashList" class="dataMessage" :key="item.id" @click="currentId(item.id)">
+          <li v-for="(item,index) in trashList" class="dataMessage"  :class="{active:index===current}" :key="item.id" @click="currentId(item.id,index)">
             <span class="title"> {{ item.updatedAt | formateData(item.updatedAt) }} </span>
             <span class="title"> {{ item.title }}</span>
           </li>
@@ -26,7 +26,8 @@ export default {
   name: 'TrashBar',
   data(){
     return{
-      current:'',
+      currentNote:'',
+      current:0,
     }
   },
   computed:{
@@ -38,9 +39,10 @@ export default {
 
   },
   methods:{
-    currentId(id){
-      this.current=this.trashList.filter(item=>item.id===id);
-      Bus.$emit('xxx',this.current);
+    currentId(id,index){
+      this.current = index;
+      this.currentNote=this.trashList.filter(item=>item.id===id);
+      Bus.$emit('xxx',this.currentNote);
     }
   }
 };

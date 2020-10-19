@@ -2,8 +2,8 @@
   <div class="note">
     <div class="header">
       <div class="date">
-        <span>创建时间:{{ message === '' ? '' : message.createdAt | formateData(message.createdAt) }}</span>
-        <span>更新时间:{{ message === '' ? '' : message.updatedAt | formateData(message.updatedAt) }}</span>
+        <span>创建时间:{{ message === undefined ? '' : message.createdAt | formateData(message.createdAt) }}</span>
+        <span>更新时间:{{ message === undefined ? '' : message.updatedAt | formateData(message.updatedAt) }}</span>
         <i class="el-icon-delete-solid delete" @click="deleteNote"></i>
       </div>
     </div>
@@ -86,7 +86,9 @@ export default {
       this.getCurrentNote(this.current.id);
     },
     notesList(){
-      this.message=this.notesList[0];
+      if(this.notesList.length!==0) {
+        this.message = this.notesList[0];
+      }
     }
   },
 }
