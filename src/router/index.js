@@ -5,6 +5,7 @@ const Home =()=>import ('@/views/Home.vue');
 const MyNotes=()=>import('@/views/MyNotes');
 const CircleNotes=()=>import('@/views/CircleNotes');
 const NoteList=()=>import('@/views/NoteList');
+/*import Login from "@/views/Login";*/
 const Login=()=>import ('@/views/Login');
 
 Vue.use(VueRouter)
@@ -38,7 +39,6 @@ const routes = [
 ]
 
 const router = new VueRouter({
-    mode: 'history',
     base: process.env.BASE_URL,
     routes
 })
