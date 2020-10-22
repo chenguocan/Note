@@ -92,13 +92,16 @@ export default {
     async getNoteList() {
       if (this.isLogin === true) {
         const {data: res} = await this.$api.getNote();
+        console.log(res);
         this.noteList = res.data;
         this.$store.commit('getNoteList', this.noteList);
       }
     },
     async getTrashList() {
       if (this.isLogin === true) {
+        console.log("123");
         const {data: res} = await this.$api.getTrash();
+        console.log(res);
         this.trashList = res.data;
         this.$store.commit('getTrashList', this.trashList);
       }
@@ -132,9 +135,14 @@ export default {
         await this.getNoteList();
       }
       this.changeEditVisible(false);
+    },
+    async getLogin(){
+      const res=await this.$api.getLogin();
+      console.log(res);
     }
   },
   created() {
+    this.getLogin();
     this.getNoteList();
     this.getTrashList();
   }

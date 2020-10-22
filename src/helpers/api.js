@@ -2,7 +2,10 @@ import base from "./base"
 import axios from "./request"
 const api={
     login(params){
-        return axios.post(base.login,params);
+        return axios.post(base.login+'login/',params);
+    },
+    getLogin(){
+        return axios.get(base.login);
     },
     getNote(){
         return axios.get(base.note);

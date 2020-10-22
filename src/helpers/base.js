@@ -1,6 +1,6 @@
 const base={
     note:'/notebooks/',
-    login:'/auth/login/',
+    login:'/auth/',
     trash:'/notes/trash/',
     add:'/notes/to/',
     notes:'/notes/from/',

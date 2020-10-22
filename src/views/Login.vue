@@ -29,11 +29,17 @@ export default {
     async login(e) {
       e.preventDefault();
       const res = await this.$api.login({username: this.username, password: this.password});
+      console.log(res);
+      await this.getLogin();
       if (res.status === 200) {
         this.$store.commit("changeLog", true);
         sessionStorage.setItem('username',this.username);
         await this.$router.push("/home/noteList");
       }
+    },
+    async getLogin(){
+      const res=await this.$api.getLogin();
+      console.log(res);
     }
   }
 };
