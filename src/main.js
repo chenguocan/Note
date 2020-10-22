@@ -7,7 +7,6 @@ import ElementUI from 'element-ui';
 import api from './helpers/api'
 import  'element-ui/lib/theme-chalk/index.css'
 import dayjs from "dayjs";
-
 Vue.filter('formateData',function(val) {
         if(val) {
             val = dayjs(val).format('YYYY-MM-DD');

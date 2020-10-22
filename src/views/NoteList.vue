@@ -99,9 +99,7 @@ export default {
     },
     async getTrashList() {
       if (this.isLogin === true) {
-        console.log("123");
         const {data: res} = await this.$api.getTrash();
-        console.log(res);
         this.trashList = res.data;
         this.$store.commit('getTrashList', this.trashList);
       }
@@ -136,13 +134,8 @@ export default {
       }
       this.changeEditVisible(false);
     },
-    async getLogin(){
-      const res=await this.$api.getLogin();
-      console.log(res);
-    }
   },
   created() {
-    this.getLogin();
     this.getNoteList();
     this.getTrashList();
   }
