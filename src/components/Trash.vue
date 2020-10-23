@@ -3,10 +3,9 @@
     <div class="header">
       <div class="date">
         <div class="noteDetail">
-          <span>创建时间:{{ current === '' ? '' : current.createdAt | formateData(current.createdAt) }}</span>
-          <span>更新时间:{{ current === '' ? '' : current.updatedAt | formateData(current.updatedAt) }}</span>
-          <span>所属笔记本:{{ currentNote === '' ? '' : currentNote.title }}
-          </span>
+          <span class="time">创建时间:{{ current === '' ? '' : current.createdAt | formateData(current.createdAt) }}</span>
+          <span class="time">更新时间:{{ current === '' ? '' : current.updatedAt | formateData(current.updatedAt) }}</span>
+          <span>所属笔记本:{{ currentNote === '' ? '' : currentNote.title }}</span>
         </div>
         <div class="btns">
           <button @click="deleteNote(current.id)">彻底删除</button>
@@ -35,7 +34,13 @@ export default {
   computed: {
     noteList() {
       return this.$store.state.noteList;
+    },
+    trashList(){
+      return this.$store.state.trashList;
     }
+  },
+  created(){
+   this.defaultSelect();
   },
   mounted() {
     Bus.$on('xxx', function (val) {
@@ -62,6 +67,7 @@ export default {
         return window.alert('删除失败');
       }
       this.$store.commit('getTrashList', res.data.data);
+      this.defaultSelect();
     },
     async revertNote(id) {
       const res = await this.$api.revertNote(id);
@@ -69,7 +75,10 @@ export default {
         window.alert('恢复失败');
       }
       await this.getTrash();
-
+    },
+    defaultSelect(){
+      this.current=this.trashList[0];
+      this.searchNote(this.current.notebookId);
     },
     searchNote(id) {
       this.currentNote = this.noteList.filter(item => item.id === id)[0];
@@ -96,7 +105,11 @@ export default {
       font-size: 10px;
       color: gray;
       line-height: 30px;
-
+      @media (max-width: 500px){
+        .time{
+          display: none;
+        }
+      }
       .btns {
         button {
           color: gray;

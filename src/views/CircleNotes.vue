@@ -30,6 +30,10 @@ export default {
 .trashNote {
   width: 100%;
   display: flex;
+  @media (max-width: 500px) {
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
   .tag {
     display: flex;
     justify-content: center;
